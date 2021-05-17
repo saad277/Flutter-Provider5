@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'package:prov/model/user.dart';
 import "package:prov/widget/input.dart";
+import 'package:prov/widget/button.dart';
 
 class Home extends StatefulWidget {
   @override
@@ -32,7 +33,24 @@ class HomeState extends State<Home> {
             key: _formKey,
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[],
+              children: <Widget>[
+                Input(
+                  labelText: 'City',
+                  onSaved: (String value) {
+                    _city = value;
+                  },
+                ),
+                SizedBox(height: 20),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Button(text: 'Add', onPressed: () {}),
+                    SizedBox(width: 8),
+                    Button(text: 'List', onPressed: () {})
+                  ],
+                ),
+                SizedBox(height: 20),
+              ],
             ),
           )),
     );
