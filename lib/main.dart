@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import "package:prov/screens/home.dart";
+import 'package:provider/provider.dart';
+import "package:prov/provider/user_notifier.dart";
 
 void main() {
-  runApp(MyApp());
+  runApp(MultiProvider(
+      providers: [ChangeNotifierProvider(create: (_) => UserNotifier()),]));
 }
 
 class MyApp extends StatelessWidget {
