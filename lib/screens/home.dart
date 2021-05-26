@@ -64,7 +64,7 @@ class HomeState extends State<Home> {
                           userNotifier.addUser(User(_name, _city));
                         }),
                     SizedBox(width: 8),
-                    Button(text: 'List', onPressed: () {})
+                   
                   ],
                 ),
                 SizedBox(width: 8),
