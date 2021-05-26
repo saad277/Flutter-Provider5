@@ -5,7 +5,9 @@ import "package:prov/provider/user_notifier.dart";
 
 void main() {
   runApp(MultiProvider(
-      providers: [ChangeNotifierProvider(create: (_) => UserNotifier()),]));
+    providers: [ChangeNotifierProvider(create: (_) => UserNotifier())],
+    child: MyApp(),
+  ));
 }
 
 class MyApp extends StatelessWidget {

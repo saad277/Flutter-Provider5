@@ -1,14 +1,18 @@
 import 'package:flutter/material.dart';
-import 'package:prov/model/user.dart';
+import 'package:provider/provider.dart';
+import 'package:prov/provider/user_notifier.dart';
+
+//consumer can only be wrapped around widgets
 
 class UserList extends StatelessWidget {
-  final List<User> users;
-  final Function(User) onDelete;
-
-  UserList(this.users, this.onDelete) {}
+  UserList() {}
 
   @override
   Widget build(BuildContext context) {
+    print("userList rebuild");
+
+    UserNotifier userNotifier = Provider.of<UserNotifier>(context);
+
     return ListView.builder(
       shrinkWrap: true,
       itemBuilder: (BuildContext, index) => Card(
@@ -19,24 +23,29 @@ class UserList extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: <Widget>[
               Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-                Text(
-                  'Name: ${users[index].name}',
-                  style: TextStyle(fontSize: 18),
+                Consumer<UserNotifier>(
+                  builder: (_, notifier, __) => Text(
+                    'Name: ${notifier.userList[index].name}',
+                    style: TextStyle(fontSize: 18),
+                  ),
                 ),
-                Text(
-                  'City: ${users[index].city}',
-                  style: TextStyle(fontSize: 18),
+                Consumer<UserNotifier>(
+                  builder: (_, notifier, __) => Text(
+                    'Name: ${notifier.userList[index].city}',
+                    style: TextStyle(fontSize: 18),
+                  ),
                 ),
               ]),
-              IconButton(
-                onPressed: () => onDelete(users[index]),
-                icon: Icon(Icons.delete),
-              )
+              Consumer<UserNotifier>(
+                  builder: (_, notifier, __) => IconButton(
+                        onPressed: () => notifier.deleteUser(index),
+                        icon: Icon(Icons.delete),
+                      )),
             ],
           ),
         ),
       ),
-      itemCount: users.length,
+      itemCount: userNotifier.userList.length,
     );
   }
 }

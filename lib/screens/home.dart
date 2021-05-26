@@ -4,6 +4,8 @@ import 'package:prov/model/user.dart';
 import "package:prov/widget/input.dart";
 import 'package:prov/widget/button.dart';
 import 'package:prov/widget/user_list.dart';
+import "package:prov/provider/user_notifier.dart";
+import 'package:provider/provider.dart';
 
 class Home extends StatefulWidget {
   @override
@@ -14,24 +16,12 @@ class HomeState extends State<Home> {
   String _name;
   String _city;
 
-  List<User> userList = [];
-
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-
-  addUser(User user) {
-    setState(() {
-      userList.add(user);
-    });
-  }
-
-  deleteUser(User user) {
-    setState(() {
-      userList.removeWhere((_user) => _user.name == user.name);
-    });
-  }
 
   @override
   Widget build(BuildContext context) {
+    UserNotifier userNotifier = Provider.of<UserNotifier>(context);
+
     return Scaffold(
       backgroundColor: Theme.of(context).backgroundColor,
       appBar: AppBar(
@@ -71,7 +61,7 @@ class HomeState extends State<Home> {
 
                           _formKey.currentState.save();
 
-                          addUser(User(_name, _city));
+                          userNotifier.addUser(User(_name, _city));
                         }),
                     SizedBox(width: 8),
                     Button(text: 'List', onPressed: () {})
@@ -79,7 +69,7 @@ class HomeState extends State<Home> {
                 ),
                 SizedBox(width: 8),
                 SizedBox(height: 20),
-                UserList(userList, deleteUser),
+                UserList(),
               ],
             ),
           )),
