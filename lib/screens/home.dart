@@ -25,10 +25,11 @@ class HomeState extends State<Home> {
     return Scaffold(
       backgroundColor: Theme.of(context).backgroundColor,
       appBar: AppBar(
-        title: Text(
-          "Provider Demo",
-          style: TextStyle(color: Colors.white),
-        ),
+        title: Consumer<String>(
+            builder: (_, title, __) => Text(
+                  title,
+                  style: TextStyle(color: Colors.white),
+                )),
       ),
       body: SingleChildScrollView(
           padding: EdgeInsets.all(32),
@@ -64,7 +65,6 @@ class HomeState extends State<Home> {
                           userNotifier.addUser(User(_name, _city));
                         }),
                     SizedBox(width: 8),
-                   
                   ],
                 ),
                 SizedBox(width: 8),
